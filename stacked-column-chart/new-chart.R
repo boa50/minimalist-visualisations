@@ -18,22 +18,50 @@ bars_levels <- reorder(df$warehouse_id, df$accuracy_pct) %>%
   rev() %>% 
   levels()
 
+metrics_order <- toupper(c("errors", "nulls", "accuracy"))
+metrics_colours <- c(app_colours$no_emphasis, 
+                     app_colours$no_emphasis2,
+                     app_colours$main)
+
 df %>% 
   select(1:4) %>% 
   pivot_longer(!warehouse_id, names_to = "type", values_to = "value") %>% 
+  mutate(type = toupper(type)) %>% 
   ggplot(aes(x = factor(warehouse_id, levels = bars_levels), 
              y = value, 
-             fill = factor(type, levels = c("errors", "nulls", "accuracy")))) +
+             fill = factor(type, 
+                           levels = metrics_order))) +
   geom_bar(stat = "identity", position = "fill", colour = "white") +
   coord_flip() +
   scale_y_continuous(labels = label_percent(),
                      expand = expansion(mult = 0)) +
-  scale_fill_manual(values = c(app_colours$no_emphasis, 
-                               app_colours$no_emphasis2,
-                               app_colours$main)) +
-  labs(x = "Warehouse ID",
+  scale_fill_manual(values = metrics_colours,
+                    labels = paste0("<span style='color:",
+                                    metrics_colours,
+                                    "'>",
+                                    metrics_order,
+                                    "</span>",
+                                    "<span> </span>",
+                                    "<span> </span>",
+                                    "<span style='color:",
+                                    c("transparent", 
+                                      app_colours$legend_title, 
+                                      app_colours$legend_title),
+                                    "'>",
+                                    "|",
+                                    "</span>")) +
+  labs(x = "Warehouse",
        y = "Total Orders (%)",
        title = "Most Accurate Warehouses",
        subtitle = "All wharehouses fulfilled at least 200 orders",
        caption = "Data from Q4 2021") +
-  theme(legend.position = "top")
+  theme(legend.position = "top",
+        legend.text = element_markdown(face = "bold"),
+        legend.justification = c(0, 0),
+        legend.margin = margin(),
+        legend.key.size = unit(1, units = "pt"),
+        legend.spacing.x = unit(3, units = "pt")) +
+  guides(fill = guide_legend(title = NULL,
+                             reverse = TRUE,
+                             label.position = "left",
+                             override.aes = list(alpha = 0)))
