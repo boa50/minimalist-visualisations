@@ -58,6 +58,8 @@ df %>%
   theme(plot.margin = margin(rep(15, 4)),
         axis.title.y = element_text(margin = margin(r = 7)),
         axis.title.x = element_text(margin = margin(t = 7)),
+        axis.line.y = element_blank(),
+        axis.ticks.y = element_blank(),
         legend.position = "top",
         legend.text = element_markdown(face = "bold"),
         legend.justification = c(0, 0),
