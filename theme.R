@@ -14,7 +14,7 @@ app_colours <- list(
   caption = "#8f8f8f",
   main = "#1976d2",
   no_emphasis = "#8f8f8f",
-  no_emphasis2 = "#9c9c9c",
+  no_emphasis2 = "#a8a8a8",
   divergent = "#f57c00",
   line_main = "#42a5f5",
   line_complementary = "#78909c"

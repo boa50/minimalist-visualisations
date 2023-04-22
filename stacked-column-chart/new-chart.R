@@ -55,7 +55,10 @@ df %>%
        title = "Most Accurate Warehouses",
        subtitle = "All wharehouses fulfilled at least 200 orders",
        caption = "Data from Q4 2021") +
-  theme(legend.position = "top",
+  theme(plot.margin = margin(rep(15, 4)),
+        axis.title.y = element_text(margin = margin(r = 7)),
+        axis.title.x = element_text(margin = margin(t = 7)),
+        legend.position = "top",
         legend.text = element_markdown(face = "bold"),
         legend.justification = c(0, 0),
         legend.margin = margin(),
