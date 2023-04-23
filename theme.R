@@ -17,7 +17,8 @@ app_colours <- list(
   no_emphasis2 = "#a8a8a8",
   divergent = "#f57c00",
   line_main = "#42a5f5",
-  line_complementary = "#78909c"
+  line_complementary = "#78909c",
+  line_complementary2 = "#D27519"
 )
 
 theme_minimalistic <- function() {
