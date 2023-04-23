@@ -14,6 +14,8 @@ df <- tibble(warehouse_id = as.character(c(1:19)),
   mutate(total = errors + accuracy + nulls,
          accuracy_pct = accuracy / total)
 
+sum(df$accuracy) / sum(df$total)
+
 bars_levels <- reorder(df$warehouse_id, df$accuracy_pct) %>% 
   rev() %>% 
   levels()
@@ -53,7 +55,11 @@ df %>%
   labs(x = "Warehouse",
        y = "Total Orders (%)",
        title = "Most Accurate Warehouses",
-       subtitle = "All wharehouses fulfilled at least 200 orders",
+       subtitle = paste("All warehouses fulfilled at least 200 orders.",
+                        "On average, the warehouses had an accuracy of",
+                        "<strong><span style='color:",
+                        app_colours$main,
+                        ";'>85%</span></strong>"),
        caption = "Data from Q4 2021") +
   theme(plot.margin = margin(rep(15, 4)),
         axis.title.y = element_text(margin = margin(r = 7)),
